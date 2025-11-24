@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
-const { pool } = require("../config/db");
-const generateOTP = require("../utils/generateOTP");
-const { sendMail } = require("../utils/sendMail");
+const { pool } = require("../../config/db");
+const generateOTP = require("../../utils/generateOTP");
+const { sendMail } = require("../../utils/sendMail");
 const { handleResendOTP } = require("./resendOTP.controller");
 const handleConsumerRegister = async (req, res) => {
   try {

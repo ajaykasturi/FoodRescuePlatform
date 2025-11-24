@@ -1,6 +1,6 @@
-const { pool } = require("../config/db");
-const generateOTP = require("../utils/generateOTP");
-const { sendMail } = require("../utils/sendMail");
+const { pool } = require("../../config/db");
+const generateOTP = require("../../utils/generateOTP");
+const { sendMail } = require("../../utils/sendMail");
 const handleResendOTP = async (req, res) => {
   try {
     const { email } = req.body;

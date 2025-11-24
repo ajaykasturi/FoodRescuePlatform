@@ -1,4 +1,4 @@
-const { pool } = require("../config/db");
+const { pool } = require("../../config/db");
 
 const handleConsumerVerifyOTP = async (req, res) => {
   const client = await pool.connect();

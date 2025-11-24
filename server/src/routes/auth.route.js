@@ -1,10 +1,14 @@
 const express = require("express");
 const signUpSchemaValidator = require("../middlewares/validators/signupValidator");
-const { handleConsumerRegister } = require("../controllers/signup.controller");
+const {
+  handleConsumerRegister,
+} = require("../controllers/consumer/signup.controller");
 const {
   handleConsumerVerifyOTP,
-} = require("../controllers/verifyOTP.controller");
-const { handleResendOTP } = require("../controllers/resendOTP.controller");
+} = require("../controllers/consumer/verifyOTP.controller");
+const {
+  handleResendOTP,
+} = require("../controllers/consumer/resendOTP.controller");
 const router = express.Router();
 
 router.post(
