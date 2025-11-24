@@ -11,7 +11,6 @@ const createOtpVerificationTable = async () => {
         failed_attempts INT DEFAULT 0,                    -- Number of failed verification attempts
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Code creation timestamp
         expires_at TIMESTAMP NOT NULL,                    -- Code expiration timestamp
-        is_used BOOLEAN DEFAULT FALSE,                    -- Whether OTP has been used
         resend_count INT DEFAULT 0,                       -- Number of times OTP was resent
         lock_expires_at TIMESTAMP                         -- OTP lock expiration timestamp
       );
