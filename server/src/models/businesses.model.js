@@ -15,7 +15,7 @@ const createBusinessTable = async () => {
         license_number VARCHAR(100),                          -- Optional
         
         verification_status VARCHAR(20) NOT NULL 
-          DEFAULT 'Pending',                                  -- Pending | Approved | Rejected
+          DEFAULT 'pending',                                  -- Pending | Approved | Rejected
         
         submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,     -- When vendor submitted
         

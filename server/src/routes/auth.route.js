@@ -13,6 +13,7 @@ const {
   handleVendorRegister,
 } = require("../controllers/vendor/signup.controller");
 const VendorSignUpSchemaValidator = require("../middlewares/validators/vendorSignUpValidator");
+const { handleLogin } = require("../controllers/common/login.controller");
 const router = express.Router();
 
 //consumer
@@ -32,4 +33,7 @@ router.post(
   VendorSignUpSchemaValidator,
   handleVendorRegister
 );
+
+//common
+router.post("/login", handleLogin);
 module.exports = router;
