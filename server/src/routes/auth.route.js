@@ -15,6 +15,7 @@ const {
 const VendorSignUpSchemaValidator = require("../middlewares/validators/vendorSignUpValidator");
 const { handleLogin } = require("../controllers/common/login.controller");
 const { verifyToken } = require("../middlewares/verifyToken");
+const { logout } = require("../controllers/common/logout.controller");
 const router = express.Router();
 
 //consumer
@@ -40,4 +41,5 @@ router.post("/login", handleLogin);
 router.post("/validate-token", verifyToken, (req, res) => {
   res.status(200).json({ userId: req.userId });
 });
+router.post("/logout", logout);
 module.exports = router;
