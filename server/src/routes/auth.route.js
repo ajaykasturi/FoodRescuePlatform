@@ -14,7 +14,10 @@ const {
 } = require("../controllers/vendor/signup.controller");
 const VendorSignUpSchemaValidator = require("../middlewares/validators/vendorSignUpValidator");
 const { handleLogin } = require("../controllers/common/login.controller");
-const { verifyToken } = require("../middlewares/verifyToken");
+const {
+  verifyConsumerToken,
+  verifyVendorToken,
+} = require("../middlewares/verifyToken");
 const { logout } = require("../controllers/common/logout.controller");
 const router = express.Router();
 
@@ -24,6 +27,9 @@ router.post(
   signUpSchemaValidator,
   handleConsumerRegister
 );
+router.post("/validate-consumer-token", verifyConsumerToken, (req, res) => {
+  res.status(200).json({ userId: req.userId });
+});
 
 router.post("/verification-otp", handleConsumerVerifyOTP);
 
@@ -35,11 +41,11 @@ router.post(
   VendorSignUpSchemaValidator,
   handleVendorRegister
 );
-
-//common
-router.post("/login", handleLogin);
-router.post("/validate-token", verifyToken, (req, res) => {
+router.post("/validate-vendor-token", verifyVendorToken, (req, res) => {
   res.status(200).json({ userId: req.userId });
 });
+//common
+router.post("/login", handleLogin);
+
 router.post("/logout", logout);
 module.exports = router;

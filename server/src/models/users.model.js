@@ -11,9 +11,9 @@ const createUsersTable = async () => {
         profile_picture_url TEXT,                        -- Profile picture URL
         phone_number VARCHAR(20),                        -- Optional phone number
         address TEXT,                                   -- Physical address
-        latitude NUMERIC(9,6),                           -- Latitude
-        longitude NUMERIC(9,6),                          -- Longitude
-        user_role VARCHAR(20) NOT NULL,               -- Consumer, Vendor, Administrator
+        latitude NUMERIC,                               -- Latitude
+        longitude NUMERIC,                              -- Longitude
+        user_role VARCHAR(20) NOT NULL,                 -- Consumer, Vendor, Administrator
         account_status VARCHAR(20) NOT NULL DEFAULT 'unverified', -- Active, Blocked, Unverified
         email_verified BOOLEAN DEFAULT FALSE,           -- Email verification
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Account creation timestamp

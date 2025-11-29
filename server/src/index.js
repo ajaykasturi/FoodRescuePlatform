@@ -3,9 +3,10 @@ require("dotenv").config();
 const { connectDB } = require("./config/db");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-//routes handlers
+//routes handler
 const apiRouter = require("./routes/api.route");
-
+//cron
+require("./cron/expireListings");
 const app = express();
 const PORT = process.env.PORT || 3003;
 
