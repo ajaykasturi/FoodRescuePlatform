@@ -17,7 +17,9 @@ const createBusinessTable = async () => {
         verification_status VARCHAR(20) NOT NULL 
           DEFAULT 'pending',                                  -- Pending | Approved | Rejected
         
-        submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,     -- When vendor submitted
+          cover_picture_url TEXT,
+        
+          submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,     -- When vendor submitted
         
         reviewed_at TIMESTAMP,                                -- When admin reviewed
         

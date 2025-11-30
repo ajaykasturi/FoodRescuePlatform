@@ -7,6 +7,11 @@ const {
 } = require("../controllers/vendor/foodlisting.controller");
 const { verifyVendorToken } = require("../middlewares/verifyToken");
 const foodListingSchemaValidator = require("../middlewares/validators/foodListingValidator");
+const {
+  getVendorOrders,
+  markOrderAsDelivered,
+  getVendorRatings,
+} = require("../controllers/vendor/incomingOrders.controller");
 
 const router = express.Router();
 //route that handles create food listing
@@ -22,4 +27,10 @@ router.get("/listings", verifyVendorToken, getVendorFoodListings);
 router.patch("/update-status", verifyVendorToken, updateFoodListingStatus);
 //vendor listings stats
 router.get("/stats", verifyVendorToken, getVendorListingStats);
+//get vendor orders
+router.get("/orders", verifyVendorToken, getVendorOrders);
+//mark order as delivered
+router.get("/orders/:id/deliver", verifyVendorToken, markOrderAsDelivered);
+//get rating by vendor for orders
+router.get("/ratings", verifyVendorToken, getVendorRatings);
 module.exports = router;

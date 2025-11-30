@@ -2,7 +2,7 @@ const cron = require("node-cron");
 const { pool } = require("../config/db");
 
 // Run every 5 minutes
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/2 * * * *", async () => {
   console.log("Cron: Checking for expired food listings...");
   try {
     //check for active listings and if they expire set status as expired
@@ -10,7 +10,8 @@ cron.schedule("*/5 * * * *", async () => {
       `
       UPDATE food_listings
       SET status = 'expired', updated_at = NOW()
-      WHERE expiry_at < NOW() AND status = 'active';    
+      WHERE (expiry_at AT TIME ZONE 'America/Toronto')
+      < (NOW() AT TIME ZONE 'America/Toronto') AND status = 'active';    
       `
     );
     console.log(`Cron: Marked ${result.rowCount} listings as expired.`);

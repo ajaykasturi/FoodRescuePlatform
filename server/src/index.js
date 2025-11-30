@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const apiRouter = require("./routes/api.route");
 //cron
 require("./cron/expireListings");
+require("./cron/pickUpExpiry");
 const app = express();
 const PORT = process.env.PORT || 3003;
 
