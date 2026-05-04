@@ -164,7 +164,9 @@ const handleLogin = async (req, res) => {
           maxAge: 2 * 24 * 60 * 60 * 1000,
           sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
         });
-        return res.status(200).json({ userId: user.id }); //remove token from response
+        return res
+          .status(200)
+          .json({ success: true, userId: user.id, userRole }); //remove token from response
       } else {
         return res
           .status(500)

@@ -2,7 +2,7 @@ const { pool } = require("../../config/db");
 const getDistance = require("../../utils/getDistance");
 const getNearByListings = async (req, res) => {
   try {
-    const WITHINDISTANCE = 20; //with in 5KM
+    const WITHINDISTANCE = 15; //with in 10KM
     const userId = req.userId;
     const filterToday = req.query.today === "true"; // true or false
     const categoryFilter = req.query.category; // 'prepared' or 'grocery'
@@ -46,6 +46,7 @@ const getNearByListings = async (req, res) => {
       u.latitude AS vendor_lat,
       u.longitude AS vendor_lng,
       u.profile_picture_url,
+      u.address,
       b.cover_picture_url,
       b.legal_name
    FROM food_listings l
@@ -103,7 +104,14 @@ const getNearByListings = async (req, res) => {
           distanceMeasure: "km",
         };
       })
-      .filter((item) => item.distance <= WITHINDISTANCE);
+      .filter((item) => {
+        if (searchQuery) {
+          return true;
+        } else {
+          return item.distance <= WITHINDISTANCE;
+        }
+      });
+    nearby.sort(() => Math.random() - 0.5);
     if (sort) {
       if (sort === "price_asc") {
         nearby.sort((a, b) => a.discounted_price - b.discounted_price);
@@ -113,6 +121,7 @@ const getNearByListings = async (req, res) => {
         nearby.sort((a, b) => a.distance - b.distance);
       }
     }
+
     return res.json({
       success: true,
       count: nearby.length,
@@ -145,7 +154,8 @@ const viewListingDetials = async (req, res) => {
         b.cover_picture_url,
         u.profile_picture_url,
         u.latitude AS vendor_lat,
-        u.longitude AS vendor_lng
+        u.longitude AS vendor_lng,
+        u.address
       FROM food_listings l
       JOIN users u ON l.vendor_id = u.id
       JOIN business_info b ON b.user_id = u.id

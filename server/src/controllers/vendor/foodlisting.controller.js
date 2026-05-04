@@ -201,7 +201,6 @@ const getVendorListingStats = async (req, res) => {
       `
       SELECT
         COUNT(*) FILTER (WHERE status = 'active') AS active_count,
-        COUNT(*) FILTER (WHERE status = 'sold') AS sold_count,
         COUNT(*) FILTER (WHERE status = 'expired') AS expired_count,
         COALESCE(SUM(bags_available) FILTER (WHERE status = 'sold'), 0) AS bags_rescued_count
       FROM food_listings
@@ -209,9 +208,13 @@ const getVendorListingStats = async (req, res) => {
       `,
       [vendorId]
     );
+    const result2 = await pool.query(
+      `SELECT count(*) AS bags_served from ORDERS WHERE vendor_id=$1 AND status='delivered'`,
+      [vendorId]
+    );
     return res.status(200).json({
       success: true,
-      stats: result.rows[0],
+      stats: { ...result.rows[0], ...result2.rows[0] },
     });
   } catch (error) {
     return res

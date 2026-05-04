@@ -13,7 +13,23 @@ const checkOutOrder = async (req, res) => {
         message: "Invalid listing",
       });
     }
+
     await client.query("BEGIN");
+
+    const previouslyOrdered = await client.query(
+      `
+      SELECT id FROM orders
+      WHERE consumer_id = $1 AND listing_id = $2;`,
+      [consumerId, listingId]
+    );
+
+    if (previouslyOrdered.rows.length > 0) {
+      await client.query("ROLLBACK");
+      return res.status(409).json({
+        success: false,
+        message: "You have already ordered this item.",
+      });
+    }
     //get listing details with row lock
     const listingResult = await client.query(
       `

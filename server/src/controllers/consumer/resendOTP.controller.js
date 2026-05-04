@@ -54,12 +54,14 @@ const handleResendOTP = async (req, res) => {
     //insert otp data into database
     await pool.query(upsertOtpQuery, otpValues);
     // Send OTP to user's email
-    const mailStatus = await sendMail({
-      email: email,
-      otp: otpCode,
-      subject: "Verification OTP for Your Account Creation",
-      otpExpiryMinutes,
-    });
+
+    // const mailStatus = await sendMail({
+    //   email: email,
+    //   otp: otpCode,
+    //   subject: "Verification OTP for Your Account Creation",
+    //   otpExpiryMinutes,
+    // });
+
     return res.status(201).json({
       success: true,
       email: email,

@@ -28,7 +28,7 @@ router.post(
   handleConsumerRegister
 );
 router.post("/validate-consumer-token", verifyConsumerToken, (req, res) => {
-  res.status(200).json({ userId: req.userId });
+  res.status(200).json({ userId: req.userId, userRole: req.user.userRole });
 });
 
 router.post("/verification-otp", handleConsumerVerifyOTP);
@@ -42,7 +42,7 @@ router.post(
   handleVendorRegister
 );
 router.post("/validate-vendor-token", verifyVendorToken, (req, res) => {
-  res.status(200).json({ userId: req.userId });
+  res.status(200).json({ userId: req.userId, userRole: req.user.userRole });
 });
 //common
 router.post("/login", handleLogin);
